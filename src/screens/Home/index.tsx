@@ -40,7 +40,8 @@ export function Home() {
 
   function handleFilterLoginData() {
     const filteredData = searchListData.filter(data => {
-      if (data.service_name.includes(searchText)) {
+      const valid = data.service_name.toLowerCase().includes(searchText.toLowerCase())
+      if (valid) {
         return data;
       }
     })
@@ -48,7 +49,10 @@ export function Home() {
   }
 
   function handleChangeInputText(text: string) {
-    setSearchText(text)
+    if(!text) {
+      setSearchListData(data);
+    }
+    setSearchText(text);
   }
 
   useFocusEffect(useCallback(() => {
